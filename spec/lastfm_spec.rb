@@ -241,5 +241,39 @@ describe "Lastfm" do
 
       @lastfm.track.share('foo artist', 'foo track', 'foo@example.com', 'this is a message')
     end
+
+    it 'should get weekly chart list' do
+      @lastfm.should_receive(:request).with('user.getWeeklyChartList', {
+        :user    => 'miles'
+      }).and_return({})
+
+      @lastfm.user.get_weekly_chart_list('miles')
+    end
+
+    it 'should get user info' do
+      @lastfm.should_receive(:request).with('user.getInfo', {
+        :user => 'miles'
+      }).and_return({})
+
+      @lastfm.user.get_info('miles')
+    end
+
+    it 'should get weekly track chart' do
+      @lastfm.should_receive(:request).with('user.getWeeklyTrackChart', {
+        :user => 'miles'
+      }).and_return({})
+
+      @lastfm.user.get_weekly_track_chart('miles')
+    end
+
+    it 'should get weekly track chart for specified time' do
+      @lastfm.should_receive(:request).with('user.getWeeklyTrackChart', {
+        :user => 'miles',
+        :from => 1108296002,
+        :to   => 1108900802
+      }).and_return({})
+
+      @lastfm.user.get_weekly_track_chart('miles', 1108296002, 1108900802)
+    end
   end
 end
